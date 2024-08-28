@@ -1,18 +1,21 @@
+
 # WhisperCLI: Audio Transcription Tool
 
-WhisperCLI - это мощный инструмент командной строки для транскрибации аудио и видео файлов, основанный на модели Whisper от OpenAI. Этот инструмент позволяет легко преобразовывать речь в текст с поддержкой множества языков и возможностью обработки определенных сегментов файла.
+[English](README.md) | [Русский](README.ru.md)
 
-## Особенности
+WhisperCLI is a powerful command-line tool for transcribing audio and video files based on the Whisper model by OpenAI. This tool allows you to easily convert speech to text with support for multiple languages and the ability to process specific segments of a file.
 
-- Поддержка различных форматов аудио и видео файлов (MP3, MP4, WAV и др.)
-- Выбор модели Whisper (tiny, base, small, medium, large)
-- Транскрибация определенных временных отрезков
-- Поддержка множества языков
-- Тихий режим работы с опцией подробных логов
-- Сохранение результатов в файл
-- Простой интерфейс командной строки
+## Features
 
-## Требования
+- Support for various audio and video file formats (MP3, MP4, WAV, etc.)
+- Choice of Whisper model (tiny, base, small, medium, large)
+- Transcription of specific time intervals
+- Support for multiple languages
+- Silent mode with an option for detailed logs
+- Save results to a file
+- Simple command-line interface
+
+## Requirements
 
 - Python 3.7+
 - PyTorch
@@ -20,109 +23,114 @@ WhisperCLI - это мощный инструмент командной стр�
 - Pydub
 - NumPy
 
-## Установка
+## Installation
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/WhisperCLI.git
+git clone https://github.com/Hole-code/WhisperCLI.git
 
 cd WhisperCLI
 ```
 
-3. Установите зависимости:
+3. Install the dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-## Системная установка
+## System Installation
 
-Чтобы использовать WhisperCLI как системную утилиту, выполните следующие шаги:
+To use WhisperCLI as a system utility, follow these steps:
 
-1. Сделайте файл скрипта исполняемым:
+1. Create a `whispercli` file with the following content:
+   ```bash
+   #!/bin/bash
+   python3 /full/path/to/whisper_cli.py "$@"
+   ```
 
+Replace /full/path/to/whisper_cli.py with the actual path to your script.
+
+2. Make the file executable:
 ```
-chmod +x whisper_cli.py
-```
-
-2. Создайте символическую ссылку в директории, которая находится в системном PATH (например, /usr/local/bin):
-
-sudo ln -s /полный/путь/к/whisper_cli.py /usr/local/bin/whispercli
-
-Замените `/полный/путь/к/whisper_cli.py` на актуальный путь к вашему скрипту.
-
-3. Теперь вы можете запускать утилиту из любой директории, просто набрав `whispercli`:
-
-```
-whispercli -n путь/к/аудио_файлу.mp3
+chmod +x whispercli
 ```
 
-Примечание: Убедитесь, что у вас есть права администратора для создания символической ссылки в системной директории.
-
-## Использование
-
-Базовое использование:
+3. Move the file to a directory that is in the system PATH:
+```
+sudo mv whispercli /usr/local/bin/
+```
+4. Now you can run the utility from any directory by simply typing whispercli:
 
 ```
-whispercli -n путь/к/вашему/аудио_файлу.mp3
+whispercli -n path/to/audio_file.mp3
 ```
 
-### Параметры
+Note: Make sure you have administrative rights to create a symbolic link in the system directory.
 
-- `-n`, `--name`: Путь к аудио файлу (обязательный параметр)
-- `-s`, `--start`: Начальное время для транскрипции (формат: SS, MM:SS, или HH:MM:SS)
-- `-e`, `--end`: Конечное время для транскрипции (формат: SS, MM:SS, или HH:MM:SS)
-- `-l`, `--language`: Ожидаемый язык аудио (например, 'ru' для русского)
-- `-m`, `--model`: Размер модели Whisper (tiny, base, small, medium, large)
-- `-o`, `--output`: Имя выходного файла для сохранения транскрипции
-- `-v`, `--verbose`: Выводить подробные логи
+## Usage
 
-### Примеры
+Basic usage:
 
-1. Транскрибировать весь файл:
+```
+whispercli -n path/to/your/audio_file.mp3
+```
+
+### Parameters
+
+- `-n`, `--name`: Path to the audio file (required)
+- `-s`, `--start`: Start time for transcription (format: SS, MM:SS, or HH:MM:SS)
+- `-e`, `--end`: End time for transcription (format: SS, MM:SS, or HH:MM:SS)
+- `-l`, `--language`: Expected language of the audio (e.g., 'en' for English)
+- `-m`, `--model`: Whisper model size (tiny, base, small, medium, large)
+- `-o`, `--output`: Output file name to save the transcription
+- `-v`, `--verbose`: Output detailed logs
+
+### Examples
+
+1. Transcribe the entire file:
 ```
 whispercli -n audio.mp3
 ```
 
-2. Транскрибировать определенный отрезок:
+2. Transcribe a specific segment:
 
 ```
 whispercli -n video.mp4 -s 5:30 -e 10:00
 ```
 
-3. Указать язык и модель:
+3. Specify language and model:
 ```
-whispercli -n audio.wav -l ru -m medium
+whispercli -n audio.wav -l en -m medium
 ```
 
-4. Сохранить результат в файл:
+4. Save the result to a file:
 
 ```
 whispercli -n audio.mp3 -o transcription.txt
 ```
 
-5. Использовать все опции с подробными логами:
+5. Use all options with detailed logs:
 
 ```
 whispercli -n long_video.mp4 -s 1:00:00 -e 1:30:00 -l en -m large -o result.txt -v
 ```
 
-## Примечания
+## Notes
 
-- Для работы с MP3 файлами может потребоваться установка ffmpeg.
-- Большие модели Whisper могут требовать значительных вычислительных ресурсов.
-- При первом запуске скрипт загрузит выбранную модель Whisper, что может занять некоторое время.
+- Working with MP3 files may require installing ffmpeg.
+- Large Whisper models may require significant computational resources.
+- On the first run, the script will download the selected Whisper model, which may take some time.
 
-## Вклад в проект
+## Contributing
 
-Мы приветствуем вклад в развитие проекта! Если у вас есть идеи по улучшению или вы нашли ошибку, пожалуйста, создайте issue или отправьте pull request.
+We welcome contributions! If you have ideas for improvements or have found a bug, please create an issue or submit a pull request.
 
-## Лицензия
+## License
 
-Этот проект распространяется под лицензией MIT. Подробности можно найти в файле [LICENSE](LICENSE).
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
 
-## Благодарности
+## Acknowledgments
 
-- OpenAI за создание модели Whisper
-- Разработчикам библиотек PyTorch, Transformers и Pydub
+- OpenAI for creating the Whisper model
+- The developers of PyTorch, Transformers, and Pydub libraries
